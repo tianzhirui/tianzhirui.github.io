@@ -228,5 +228,208 @@ function lose(){
     <p ><input type="button" style="position:relative;left:500px;top:5px;width:100px;height:50px;" value="重新开始" onclick="location.reload() "/>
     <input type="button" style="position:relative;left:550px;top:5px;width:100px;height:50px;" value="认  输" onclick="lose()"/>
     </p>
+      
+      
+      <div id="content">
+    <div id="Logo"></div>
+    <div id="Search">
+      <form action="/plus/search.php" target="_blank">
+        <div id="SearchBox1">
+          <input name="typeid" value="100" type="hidden">
+          <input type="text" name="q" class="SearchInput"></div>
+        <div id="SearchBox2">
+          <input type="submit" value="搜一下" class="SearchSubmit"></div>
+      </form>
+    </div>
+    <div id="Nav">
+      <a class="navp" title="萌站" onmousedown="show('Moe')">
+        <img src="http://go.pcmoe.net/m/img/moe.png" alt="萌站" /></a>
+      <a class="navp" title="动画" onmousedown="show('Anime')">
+        <img src="http://go.pcmoe.net/m/img/anime.png" alt="动画" /></a>
+      <a class="navp" title="漫画" onmousedown="show('Manga')">
+        <img src="http://go.pcmoe.net/m/img/manga.png" alt="漫画" /></a>
+      <a class="navp" title="图片" onmousedown="show('Pic')">
+        <img src="http://go.pcmoe.net/m/img/pic.png" alt="图片" /></a>
+      <a class="navp" title="文学" onmousedown="show('Literature')">
+        <img src="http://go.pcmoe.net/m/img/literature.png" alt="文学" /></a>
+      <a class="navp" title="常用" onmousedown="show('Common')">
+        <img src="http://go.pcmoe.net/m/img/common.png" alt="常用" /></a>
+      <a class="navh" onmousedown="show('Moe')">萌站</a>
+      <a class="navh" onmousedown="show('Anime')">动画</a>
+      <a class="navh" onmousedown="show('Manga')">漫画</a>
+      <a class="navh" onmousedown="show('Pic')">图片</a>
+      <a class="navh" onmousedown="show('Literature')">文学</a>
+      <a class="navh" onmousedown="show('Common')">常用</a></div>
+    <div id="MoeSaw"></div>
+  </div>
+  <div>
+    <div id="Moe" class="box">
+      <div class="box_head">
+        <a onmousedown="hide('Moe')">×</a></div>
+      <div class="box_list">
+        <a class="box_icon" style="background: #fcc800;" target="_blank" href="http://www.pcmoe.net">萌</a>
+        <a class="box_icon" style="background: #ff3d00;" target="_blank" href="https://acg.taobao.com">淘</a>
+        <a class="box_icon" style="background: #dc514d;" target="_blank" href="http://comic.sina.com.cn">新</a>
+        <a class="box_icon" style="background: #fe8929;" target="_blank" href="https://ac.qq.com">腾</a>
+        <br>
+        <a class="box_h" target="_blank" href="http://www.pcmoe.net">萌研社</a>
+        <a class="box_h" target="_blank" href="https://acg.taobao.com">淘宝动漫</a>
+        <a class="box_h" target="_blank" href="http://comic.sina.com.cn">新浪动漫</a>
+        <a class="box_h" target="_blank" href="https://ac.qq.com">腾讯动漫</a>
+        <br>
+        <a class="box_icon" style="background: #159dad;" target="_blank" href="https://www.gamer.com.tw">巴</a>
+        <a class="box_icon" style="background: #ff625e;" target="_blank" href="http://acg.178.com">7</a>
+        <a class="box_icon" style="background: #000000;" target="_blank" href="https://game.ali213.net">侠</a>
+        <a class="box_icon" style="background: #71cadd;" target="_blank" href="https://www.moejam.com">梦</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://www.gamer.com.tw">巴哈姆特</a>
+        <a class="box_h" target="_blank" href="http://acg.178.com">178动漫</a>
+        <a class="box_h" target="_blank" href="https://game.ali213.net">游侠论坛</a>
+        <a class="box_h" target="_blank" href="https://www.moejam.com">梦域动漫</a>
+        <br>
+        <a class="box_icon" style="background: #ff6fa2;" target="_blank" href="https://bcy.net">半</a>
+        <a class="box_icon" style="background: #ed6407;" target="_blank" href="https://www.nyato.com">喵</a>
+        <a class="box_icon" style="background: #30b6c0;" target="_blank" href="https://www.mooyuu.com">胖</a>
+        <a class="box_icon" style="background: #4ad455;" target="_blank" href="https://zh.moegirl.org">娘</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://bcy.net">半次元</a>
+        <a class="box_h" target="_blank" href="https://www.nyato.com">喵特漫展</a>
+        <a class="box_h" target="_blank" href="https://www.mooyuu.com">胖次网</a>
+        <a class="box_h" target="_blank" href="https://zh.moegirl.org">萌娘百科</a></div>
+    </div>
+    <div id="Anime" class="box">
+      <div class="box_head">
+        <a onmousedown="hide('Anime')">×</a></div>
+      <div class="box_list">
+        <a class="box_icon" style="background: #00b3ef;" target="_blank" href="https://www.bilibili.com">B</a>
+        <a class="box_icon" style="background: #fd4c5b;" target="_blank" href="https://www.acfun.cn">A</a>
+        <a class="box_icon" style="background: #000000;" target="_blank" href="https://www.nicovideo.jp">N</a>
+        <a class="box_icon" style="background: #ed0000;" target="_blank" href="https://comic.youku.com">优</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://www.bilibili.com">BiLiBiLi</a>
+        <a class="box_h" target="_blank" href="https://www.acfun.cn">ACFun</a>
+        <a class="box_h" target="_blank" href="https://www.nicovideo.jp">NicoNico</a>
+        <a class="box_h" target="_blank" href="https://comic.youku.com">优酷动画</a>
+        <br>
+        <a class="box_icon" style="background: #ff6600;" target="_blank" href="https://cartoon.tudou.com">土</a>
+        <a class="box_icon" style="background: #78a707;" target="_blank" href="https://www.iqiyi.com/dongman">奇</a>
+        <a class="box_icon" style="background: #0a8bf6;" target="_blank" href="https://v.qq.com/channel/cartoon">腾</a>
+        <a class="box_icon" style="background: #b21e23;" target="_blank" href="https://comic.le.com">乐</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://cartoon.tudou.com">土豆动画</a>
+        <a class="box_h" target="_blank" href="https://www.iqiyi.com/dongman">爱奇艺动画</a>
+        <a class="box_h" target="_blank" href="https://v.qq.com/channel/cartoon">腾讯动画</a>
+        <a class="box_h" target="_blank" href="https://comic.le.com">乐视动画</a></div>
+    </div>
+    <div id="Manga" class="box">
+      <div class="box_head">
+        <a onmousedown="hide('Manga')">×</a></div>
+      <div class="box_list">
+        <a class="box_icon" style="background: #9cd12c;" target="_blank" href="http://www.u17.com">妖</a>
+        <a class="box_icon" style="background: #fa9144;" target="_blank" href="https://ac.qq.com">腾</a>
+        <a class="box_icon" style="background: #cf253c;" target="_blank" href="https://manga.bilibili.com">哔</a>
+        <a class="box_icon" style="background: #146fdd;" target="_blank" href="https://www.dmzj.com">家</a>
+        <br>
+        <a class="box_h" target="_blank" href="http://www.u17.com">有妖气</a>
+        <a class="box_h" target="_blank" href="https://ac.qq.com">腾讯漫画</a>
+        <a class="box_h" target="_blank" href="https://manga.bilibili.com">哔哩漫画</a>
+        <a class="box_h" target="_blank" href="https://www.dmzj.com">动漫之家</a>
+        <br>
+        <a class="box_icon" style="background: #d0101b;" target="_blank" href="http://manhua.weibo.com">微</a>
+        <a class="box_icon" style="background: #3866a1;" target="_blank" href="http://www.1kkk.com">极</a>
+        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
+        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
+        <br>
+        <a class="box_h" target="_blank" href="http://manhua.weibo.com">微漫画</a>
+        <a class="box_h" target="_blank" href="http://www.1kkk.com">极速漫画</a>
+        <a class="box_h" target="_blank"></a>
+        <a class="box_h" target="_blank"></a>
+      </div>
+    </div>
+    <div id="Pic" class="box">
+      <div class="box_head">
+        <a onmousedown="hide('Pic')">×</a></div>
+      <div class="box_list">
+        <a class="box_icon" style="background: #0598dd;" target="_blank" href="https://www.pixiv.net">P</a>
+        <a class="box_icon" style="background: #05cc47;" target="_blank" href="https://www.deviantart.com">D</a>
+        <a class="box_icon" style="background: #fe8602;" target="_blank" href="https://www.zerochan.net">Z</a>
+        <a class="box_icon" style="background: #c3c3c3;" target="_blank" href="http://www.minitokyo.net">M</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://www.pixiv.net">Pixiv</a>
+        <a class="box_h" target="_blank" href="https://www.deviantart.com">Deviantart</a>
+        <a class="box_h" target="_blank" href="https://www.zerochan.net">Zerochan</a>
+        <a class="box_h" target="_blank" href="http://www.minitokyo.net">Minitokyo</a>
+        <br>
+        <a class="box_icon" style="background: #ffb700;" target="_blank" href="https://www.zcool.com.cn">酷</a>
+        <a class="box_icon" style="background: #21a900;" target="_blank" href="https://www.58pic.com">千</a>
+        <a class="box_icon" style="background: #991010;" target="_blank" href="http://www.redocn.com">红</a>
+        <a class="box_icon" style="background: #dd137b;" target="_blank" href="http://www.nipic.com">昵</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://www.zcool.com.cn">站酷网</a>
+        <a class="box_h" target="_blank" href="https://www.58pic.com">千图网</a>
+        <a class="box_h" target="_blank" href="http://www.redocn.com">红动中国</a>
+        <a class="box_h" target="_blank" href="http://www.nipic.com">昵图网</a></div>
+    </div>
+    <div id="Literature" class="box">
+      <div class="box_head">
+        <a onmousedown="hide('Literature')">×</a></div>
+      <div class="box_list">
+        <a class="box_icon" style="background: #bf2c24;" target="_blank" href="https://www.qidian.com">起</a>
+        <a class="box_icon" style="background: #4095d5;" target="_blank" href="http://book.qq.com">腾</a>
+        <a class="box_icon" style="background: #1b9f80;" target="_blank" href="https://www.linovel.net">轻</a>
+        <a class="box_icon" style="background: #ff7282;" target="_blank" href="https://www.iqing.com">文</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://www.qidian.com">起点中文</a>
+        <a class="box_h" target="_blank" href="http://book.qq.com">腾讯文学</a>
+        <a class="box_h" target="_blank" href="https://www.linovel.net">轻之文库</a>
+        <a class="box_h" target="_blank" href="https://www.iqing.com">轻文网</a>
+        <br>
+        <a class="box_icon" style="background: #000000;" target="_blank" href="http://www.shueisha.co.jp">英</a>
+        <a class="box_icon" style="background: #e53842;" target="_blank" href="http://dengekibunko.jp">电</a>
+        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
+        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
+        <br>
+        <a class="box_h" target="_blank" href="http://www.shueisha.co.jp">集英社</a>
+        <a class="box_h" target="_blank" href="http://dengekibunko.jp">电击文库</a>
+        <a class="box_h" target="_blank"></a>
+        <a class="box_h" target="_blank"></a>
+      </div>
+    </div>
+    <div id="Common" class="box">
+      <div class="box_head">
+        <a onmousedown="hide('Common')">×</a></div>
+      <div class="box_list">
+        <a class="box_icon" style="background: #000000;" target="_blank" href="https://zh.wikipedia.org">维</a>
+        <a class="box_icon" style="background: #2932e1;" target="_blank" href="https://baike.baidu.com">度</a>
+        <a class="box_icon" style="background: #0f88eb;" target="_blank" href="https://www.zhihu.com">知</a>
+        <a class="box_icon" style="background: #3b5998;" target="_blank" href="http://muchong.com">虫</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://zh.wikipedia.org">维基百科</a>
+        <a class="box_h" target="_blank" href="https://baike.baidu.com">百度百科</a>
+        <a class="box_h" target="_blank" href="https://www.zhihu.com">知乎</a>
+        <a class="box_h" target="_blank" href="http://muchong.com">小木虫</a>
+        <br>
+        <a class="box_icon" style="background: #e6162d;" target="_blank" href="https://www.weibo.com">微</a>
+        <a class="box_icon" style="background: #2832e0;" target="_blank" href="https://tieba.baidu.com">贴</a>
+        <a class="box_icon" style="background: #4986d0;" target="_blank" href="https://www.tianya.cn">涯</a>
+        <a class="box_icon" style="background: #ffce00;" target="_blank" href="https://qzone.qq.com">Q</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://www.weibo.com">微博</a>
+        <a class="box_h" target="_blank" href="https://tieba.baidu.com">百度贴吧</a>
+        <a class="box_h" target="_blank" href="https://www.tianya.cn">天涯</a>
+        <a class="box_h" target="_blank" href="https://qzone.qq.com">QQ空间</a>
+        <br>
+        <a class="box_icon" style="background: #3b5998;" target="_blank" href="https://www.facebook.com">F</a>
+        <a class="box_icon" style="background: #41abe1;" target="_blank" href="https://twitter.com">W</a>
+        <a class="box_icon" style="background: #35465c;" target="_blank" href="https://www.tumblr.com">T</a>
+        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
+        <br>
+        <a class="box_h" target="_blank" href="https://www.facebook.com">Facebook</a>
+        <a class="box_h" target="_blank" href="https://twitter.com">Twitter</a>
+        <a class="box_h" target="_blank" href="https://www.tumblr.com">Tumblr</a>
+        <a class="box_h" target="_blank"></a>
+      </div>
+    </div>
+  </div>
     <body>
     </html>
