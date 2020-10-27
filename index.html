@@ -1,435 +1,175 @@
-
-
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-<meta charset="utf-8">
-      <script data-ad-client="ca-pub-2867183338915894" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <title>井字棋</title>
-    <script>
-//定义全局变量
-var full=[[0,0,0],[0,0,0],[0,0,0]];//0表示null，1表示我下的，2表示电脑下的
-var val=[[1,1,1],[1,1,1],[1,1,1]];//表示每个位置的权值
-function judge(){
-    //检测是否有人赢
-    //行
-    for(var i=0;i<3;i++){
-        if(full[i][0]==full[i][1]&&full[i][1]==full[i][2]&&full[i][0]!=0){
-            if(full[i][0]==1){
-                window.alert("you win!");
-                return true;
-            }
-            else {
-                window.alert("you lose");
-                return true;
-            }
-        }
-    }
-    //列
-    for(var i=0;i<3;i++){
-        if(full[0][i]==full[1][i]&&full[1][i]==full[2][i]&&full[0][i]!=0){
-            if(full[0][i]==1){
-                window.alert("you win!");
-                return true;
-            }
-            else {
-                window.alert("you lose");
-                return true;
-            }
-        }
-    }
-    //主对角线
-    if(full[0][0]==full[1][1]&&full[1][1]==full[2][2]&&full[0][0]!=0){
-        if(full[0][0]==1){
-            window.alert("you win!");
-            return true;
-        }
-        else {
-            window.alert("you lose");
-            return true;
-        }
-    }
-    if(full[0][2]==full[1][1]&&full[2][0]==full[1][1]&&full[0][2]!=0){
-        if(full[0][2]==1){
-            window.alert("you win!");
-            return true;
-        }
-        else {
-            window.alert("you lose");
-            return true;
-        }
-    }
-    for(var i=0;i<3;i++){
-        for(var j=0;j<3;j++){
-            if(full[i][j]==0)
-                return false;//说明还没结束
-            if(i==2&&j==2)
-            {window.alert("平局！");//cout<<"ping ju"
-                return true;
-            }
-        }
-    }
-    return false;//无结果
-}
-function bn(i,j){
-    //如果已经下过，则无效
-    if(full[i][j]!=0){
-        return 0;
-    }else{
-        //没下过
-        full[i][j]=1;
-        num1=(i*3+j+1)+"";
-        document.getElementById(num1).value="X";
-        if(judge()==true){
-            return;
-        }
-        ai();//切换
-    }
-}
-//重置权值：
-function resetValue(){
-    for(var i=0;i<3;i++){
-        for(var j=0;j<3;j++){
-            if(full[i][j]!=0)
-                val[i][j]=0;
-            else{
-                //看行和列：
-                //最高权值
-                if(((full[0][j]+full[1][j]+full[2][j])==4)&&(full[0][j]*full[1][j]*full[2][j])==0
-                    &&((full[0][j]-1)*(full[1][j]-1)*(full[2][j]-1))==-1)
-                    val[i][j]=val[i][j]+10000;
-                if(((full[i][0]+full[i][1]+full[i][2])==4)&&(full[i][0]*full[i][1]*full[i][2])==0
-                    &&((full[i][0]-1)*(full[i][1]-1)*(full[i][2]-1))==-1)
-                    val[i][j]=val[i][j]+10000;
-                //次级权值
-                if(((full[0][j]+full[1][j]+full[2][j])==2)&&(full[0][j]*full[1][j]*full[2][j])==0
-                    &&((full[0][j]-1)*(full[1][j]-1)*(full[2][j]-1))==0)
-                    val[i][j]=val[i][j]+1000;
-                if(((full[i][0]+full[i][1]+full[i][2])==2)&&(full[i][0]*full[i][1]*full[i][2])==0
-                    &&((full[i][0]-1)*(full[i][1]-1)*(full[i][2]-1))==0)
-                    val[i][j]=val[i][j]+1000;
-                //三级权值（一排只有一个X）
-                if(((full[0][j]+full[1][j]+full[2][j])==1)&&(full[0][j]*full[1][j]*full[2][j])==0
-                    &&((full[0][j]-1)*(full[1][j]-1)*(full[2][j]-1))==0)
-                    val[i][j]=val[i][j]+10;
-                if(((full[i][0]+full[i][1]+full[i][2])==1)&&(full[i][0]*full[i][1]*full[i][2])==0
-                    &&((full[i][0]-1)*(full[i][1]-1)*(full[i][2]-1))==0)
-                    val[i][j]=val[i][j]+10;
-                //四级权值（一排只有一个O）
-                if(((full[0][j]+full[1][j]+full[2][j])==2)&&(full[0][j]*full[1][j]*full[2][j])==0
-                    &&((full[0][j]-1)*(full[1][j]-1)*(full[2][j]-1))==1)
-                    val[i][j]=val[i][j]+5;
-                if(((full[i][0]+full[i][1]+full[i][2])==2)&&(full[i][0]*full[i][1]*full[i][2])==0
-                    &&((full[i][0]-1)*(full[i][1]-1)*(full[i][2]-1))==1)
-                    val[i][j]=val[i][j]+5;
-                //五级权限（该行没有X或O）
-                if(((full[0][j]+full[1][j]+full[2][j])==0)&&(full[0][j]*full[1][j]*full[2][j])==0
-                    &&((full[0][j]-1)*(full[1][j]-1)*(full[2][j]-1))==-1)
-                    val[i][j]=val[i][j]+2;
-                if(((full[i][0]+full[i][1]+full[i][2])==0)&&(full[i][0]*full[i][1]*full[i][2])==0
-                    &&((full[i][0]-1)*(full[i][1]-1)*(full[i][2]-1))==-1)
-                    val[i][j]=val[i][j]+2;
-                //主对角线：同上
-                if((i==0&&j==0)||(i==2&&j==2)||(i==1&&j==1)){
-                    if(((full[0][0]+full[1][1]+full[2][2])==4)&&(full[0][0]*full[1][1]*full[2][2])==0
-                        &&((full[0][0]-1)*(full[1][1]-1)*(full[2][2]-1))==-1)
-                        val[i][j]=val[i][j]+10000;
-                    //次级权值
-                    if(((full[0][0]+full[1][1]+full[2][2])==2)&&(full[0][0]*full[1][1]*full[2][2])==0
-                        &&((full[0][0]-1)*(full[1][1]-1)*(full[2][2]-1))==0)
-                        val[i][j]=val[i][j]+1000;
-                    //三级权值（一排只有一个X）
-                    if(((full[0][0]+full[1][1]+full[2][2])==1)&&(full[0][0]*full[1][1]*full[2][2])==0
-                        &&((full[0][0]-1)*(full[1][1]-1)*(full[2][2]-1))==0)
-                        val[i][j]=val[i][j]+10;
-                    //四级权值（一排只有一个O）
-                    if(((full[0][0]+full[1][1]+full[2][2])==2)&&(full[0][0]*full[1][1]*full[2][2])==0
-                        &&((full[0][0]-1)*(full[1][1]-1)*(full[2][2]-1))==1)
-                        val[i][j]=val[i][j]+5;
-                    //五级权值（该行没有X或O）
-                    if(((full[0][0]+full[1][1]+full[2][2])==0)&&(full[0][0]*full[1][1]*full[2][2])==0
-                        &&((full[0][0]-1)*(full[1][1]-1)*(full[2][2]-1))==-1)
-                        val[i][j]=val[i][j]+2;
-                }
-                //副对角线(同上)
-                if((i==0&&j==2)||(i==2&&j==0)||(i==1&&j==1)){
-                    //一级
-                    if(((full[0][2]+full[1][1]+full[2][0])==4)&&(full[0][2]*full[1][1]*full[2][0])==0
-                        &&((full[0][2]-1)*(full[1][1]-1)*(full[2][0]-1))==-1)
-                        val[i][j]=val[i][j]+10000;
-                    //二级
-                    if(((full[0][2]+full[1][1]+full[2][0])==2)&&(full[0][2]*full[1][1]*full[2][0])==0
-                        &&((full[0][2]-1)*(full[1][1]-1)*(full[2][0]-1))==0)
-                        val[i][j]=val[i][j]+1000;
-                    //三级权值（一排只有一个X）
-                    if(((full[0][2]+full[1][1]+full[2][0])==1)&&(full[0][2]*full[1][1]*full[2][0])==0
-                        &&((full[0][2]-1)*(full[1][1]-1)*(full[2][0]-1))==0)
-                        val[i][j]=val[i][j]+10;
-                    //四级权值（一排只有一个O）
-                    if(((full[0][2]+full[1][1]+full[2][0])==2)&&(full[0][2]*full[1][1]*full[2][0])==0
-                        &&((full[0][2]-1)*(full[1][1]-1)*(full[2][0]-1))==1)
-                        val[i][j]=val[i][j]+5;
-                    //五级权值（该行没有X或O）
-                    if(((full[0][2]+full[1][1]+full[2][0])==0)&&(full[0][2]*full[1][1]*full[2][0])==0
-                        &&((full[0][2]-1)*(full[1][1]-1)*(full[2][0]-1))==-1)
-                        val[i][j]=val[i][j]+2;
-                }
-            }
-        }
-    }
-}
-function ai(){
-    if(judge()==true){
-        return;
-    }
-    //挑选权值最大的
-    resetValue();
-    var mi=0,mj=0,temp=0;
-    for(var i=0;i<3;i++)
-        for(var j=0;j<3;j++){
-            if(val[i][j]>temp){
-                temp=val[i][j];
-                mi=i;
-                mj=j;
-            }
-        }
-    full[mi][mj]=2;
-    num1=(mi*3+mj+1)+"";
-    document.getElementById(num1).value="O";
-    if(judge()==true){
-        return;
-    }
-}
-function lose(){
-    window.alert("you lose");
-    location.reload();
-}
-</script>
+	<meta charset="UTF-8">
+	<title>小米商城</title>
+	<link rel="shortcun icon"  href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/iconfont.css">
+
 </head>
 <body>
-<h1 align=center> 井字棋</h1>
-    <table border=2px bordercolor="blue"width="300"height="300" style="font-size:50 " align=center>
-    <tr>
-    <td><input type="button" id="1" Style="width:100px;height:100px;" value=" " onclick="bn(0,0)"/></td>
-    <td><input type="button" id="2" Style="width:100px;height:100px;" value=" " onclick="bn(0,1)"/></td>
-    <td><input type="button" id="3" Style="width:100px;height:100px;" value=" " onclick="bn(0,2)"/></td>
-    </tr>
-    <tr>
-    <td><input type="button" id="4" Style="width:100px;height:100px;" value=" " onclick="bn(1,0)"/></td>
-    <td><input type="button" id="5" Style="width:100px;height:100px;" value=" " onclick="bn(1,1)"/></td>
-    <td><input type="button" id="6" Style="width:100px;height:100px;" value=" " onclick="bn(1,2)"/></td>
-    </tr>
-    <tr >
-    <td><input type="button" id="7" Style="width:100px;height:100px;" value=" " onclick="bn(2,0)"/></td>
-    <td><input type="button" id="8" Style="width:100px;height:100px;" value=" " onclick="bn(2,1)"/></td>
-    <td><input type="button" id="9" Style="width:100px;height:100px;" value=" " onclick="bn(2,2)"/></td>
-    </tr>
-    </table>
-    <p ><input type="button" style="position:relative;left:500px;top:5px;width:100px;height:50px;" value="重新开始" onclick="location.reload() "/>
-    <input type="button" style="position:relative;left:550px;top:5px;width:100px;height:50px;" value="认  输" onclick="lose()"/>
-    </p>
-      
-      
-      <div id="content">
-    <div id="Logo"></div>
-    <div id="Search">
-      <form action="/plus/search.php" target="_blank">
-        <div id="SearchBox1">
-          <input name="typeid" value="100" type="hidden">
-          <input type="text" name="q" class="SearchInput"></div>
-        <div id="SearchBox2">
-          <input type="submit" value="搜一下" class="SearchSubmit"></div>
-      </form>
-    </div>
-    <div id="Nav">
-      <a class="navp" title="萌站" onmousedown="show('Moe')">
-        <img src="http://go.pcmoe.net/m/img/moe.png" alt="萌站" /></a>
-      <a class="navp" title="动画" onmousedown="show('Anime')">
-        <img src="http://go.pcmoe.net/m/img/anime.png" alt="动画" /></a>
-      <a class="navp" title="漫画" onmousedown="show('Manga')">
-        <img src="http://go.pcmoe.net/m/img/manga.png" alt="漫画" /></a>
-      <a class="navp" title="图片" onmousedown="show('Pic')">
-        <img src="http://go.pcmoe.net/m/img/pic.png" alt="图片" /></a>
-      <a class="navp" title="文学" onmousedown="show('Literature')">
-        <img src="http://go.pcmoe.net/m/img/literature.png" alt="文学" /></a>
-      <a class="navp" title="常用" onmousedown="show('Common')">
-        <img src="http://go.pcmoe.net/m/img/common.png" alt="常用" /></a>
-      <a class="navh" onmousedown="show('Moe')">萌站</a>
-      <a class="navh" onmousedown="show('Anime')">动画</a>
-      <a class="navh" onmousedown="show('Manga')">漫画</a>
-      <a class="navh" onmousedown="show('Pic')">图片</a>
-      <a class="navh" onmousedown="show('Literature')">文学</a>
-      <a class="navh" onmousedown="show('Common')">常用</a></div>
-    <div id="MoeSaw"></div>
-  </div>
-  <div>
-    <div id="Moe" class="box">
-      <div class="box_head">
-        <a onmousedown="hide('Moe')">×</a></div>
-      <div class="box_list">
-        <a class="box_icon" style="background: #fcc800;" target="_blank" href="http://www.pcmoe.net">萌</a>
-        <a class="box_icon" style="background: #ff3d00;" target="_blank" href="https://acg.taobao.com">淘</a>
-        <a class="box_icon" style="background: #dc514d;" target="_blank" href="http://comic.sina.com.cn">新</a>
-        <a class="box_icon" style="background: #fe8929;" target="_blank" href="https://ac.qq.com">腾</a>
-        <br>
-        <a class="box_h" target="_blank" href="http://www.pcmoe.net">萌研社</a>
-        <a class="box_h" target="_blank" href="https://acg.taobao.com">淘宝动漫</a>
-        <a class="box_h" target="_blank" href="http://comic.sina.com.cn">新浪动漫</a>
-        <a class="box_h" target="_blank" href="https://ac.qq.com">腾讯动漫</a>
-        <br>
-        <a class="box_icon" style="background: #159dad;" target="_blank" href="https://www.gamer.com.tw">巴</a>
-        <a class="box_icon" style="background: #ff625e;" target="_blank" href="http://acg.178.com">7</a>
-        <a class="box_icon" style="background: #000000;" target="_blank" href="https://game.ali213.net">侠</a>
-        <a class="box_icon" style="background: #71cadd;" target="_blank" href="https://www.moejam.com">梦</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://www.gamer.com.tw">巴哈姆特</a>
-        <a class="box_h" target="_blank" href="http://acg.178.com">178动漫</a>
-        <a class="box_h" target="_blank" href="https://game.ali213.net">游侠论坛</a>
-        <a class="box_h" target="_blank" href="https://www.moejam.com">梦域动漫</a>
-        <br>
-        <a class="box_icon" style="background: #ff6fa2;" target="_blank" href="https://bcy.net">半</a>
-        <a class="box_icon" style="background: #ed6407;" target="_blank" href="https://www.nyato.com">喵</a>
-        <a class="box_icon" style="background: #30b6c0;" target="_blank" href="https://www.mooyuu.com">胖</a>
-        <a class="box_icon" style="background: #4ad455;" target="_blank" href="https://zh.moegirl.org">娘</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://bcy.net">半次元</a>
-        <a class="box_h" target="_blank" href="https://www.nyato.com">喵特漫展</a>
-        <a class="box_h" target="_blank" href="https://www.mooyuu.com">胖次网</a>
-        <a class="box_h" target="_blank" href="https://zh.moegirl.org">萌娘百科</a></div>
-    </div>
-    <div id="Anime" class="box">
-      <div class="box_head">
-        <a onmousedown="hide('Anime')">×</a></div>
-      <div class="box_list">
-        <a class="box_icon" style="background: #00b3ef;" target="_blank" href="https://www.bilibili.com">B</a>
-        <a class="box_icon" style="background: #fd4c5b;" target="_blank" href="https://www.acfun.cn">A</a>
-        <a class="box_icon" style="background: #000000;" target="_blank" href="https://www.nicovideo.jp">N</a>
-        <a class="box_icon" style="background: #ed0000;" target="_blank" href="https://comic.youku.com">优</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://www.bilibili.com">BiLiBiLi</a>
-        <a class="box_h" target="_blank" href="https://www.acfun.cn">ACFun</a>
-        <a class="box_h" target="_blank" href="https://www.nicovideo.jp">NicoNico</a>
-        <a class="box_h" target="_blank" href="https://comic.youku.com">优酷动画</a>
-        <br>
-        <a class="box_icon" style="background: #ff6600;" target="_blank" href="https://cartoon.tudou.com">土</a>
-        <a class="box_icon" style="background: #78a707;" target="_blank" href="https://www.iqiyi.com/dongman">奇</a>
-        <a class="box_icon" style="background: #0a8bf6;" target="_blank" href="https://v.qq.com/channel/cartoon">腾</a>
-        <a class="box_icon" style="background: #b21e23;" target="_blank" href="https://comic.le.com">乐</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://cartoon.tudou.com">土豆动画</a>
-        <a class="box_h" target="_blank" href="https://www.iqiyi.com/dongman">爱奇艺动画</a>
-        <a class="box_h" target="_blank" href="https://v.qq.com/channel/cartoon">腾讯动画</a>
-        <a class="box_h" target="_blank" href="https://comic.le.com">乐视动画</a></div>
-    </div>
-    <div id="Manga" class="box">
-      <div class="box_head">
-        <a onmousedown="hide('Manga')">×</a></div>
-      <div class="box_list">
-        <a class="box_icon" style="background: #9cd12c;" target="_blank" href="http://www.u17.com">妖</a>
-        <a class="box_icon" style="background: #fa9144;" target="_blank" href="https://ac.qq.com">腾</a>
-        <a class="box_icon" style="background: #cf253c;" target="_blank" href="https://manga.bilibili.com">哔</a>
-        <a class="box_icon" style="background: #146fdd;" target="_blank" href="https://www.dmzj.com">家</a>
-        <br>
-        <a class="box_h" target="_blank" href="http://www.u17.com">有妖气</a>
-        <a class="box_h" target="_blank" href="https://ac.qq.com">腾讯漫画</a>
-        <a class="box_h" target="_blank" href="https://manga.bilibili.com">哔哩漫画</a>
-        <a class="box_h" target="_blank" href="https://www.dmzj.com">动漫之家</a>
-        <br>
-        <a class="box_icon" style="background: #d0101b;" target="_blank" href="http://manhua.weibo.com">微</a>
-        <a class="box_icon" style="background: #3866a1;" target="_blank" href="http://www.1kkk.com">极</a>
-        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
-        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
-        <br>
-        <a class="box_h" target="_blank" href="http://manhua.weibo.com">微漫画</a>
-        <a class="box_h" target="_blank" href="http://www.1kkk.com">极速漫画</a>
-        <a class="box_h" target="_blank"></a>
-        <a class="box_h" target="_blank"></a>
-      </div>
-    </div>
-    <div id="Pic" class="box">
-      <div class="box_head">
-        <a onmousedown="hide('Pic')">×</a></div>
-      <div class="box_list">
-        <a class="box_icon" style="background: #0598dd;" target="_blank" href="https://www.pixiv.net">P</a>
-        <a class="box_icon" style="background: #05cc47;" target="_blank" href="https://www.deviantart.com">D</a>
-        <a class="box_icon" style="background: #fe8602;" target="_blank" href="https://www.zerochan.net">Z</a>
-        <a class="box_icon" style="background: #c3c3c3;" target="_blank" href="http://www.minitokyo.net">M</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://www.pixiv.net">Pixiv</a>
-        <a class="box_h" target="_blank" href="https://www.deviantart.com">Deviantart</a>
-        <a class="box_h" target="_blank" href="https://www.zerochan.net">Zerochan</a>
-        <a class="box_h" target="_blank" href="http://www.minitokyo.net">Minitokyo</a>
-        <br>
-        <a class="box_icon" style="background: #ffb700;" target="_blank" href="https://www.zcool.com.cn">酷</a>
-        <a class="box_icon" style="background: #21a900;" target="_blank" href="https://www.58pic.com">千</a>
-        <a class="box_icon" style="background: #991010;" target="_blank" href="http://www.redocn.com">红</a>
-        <a class="box_icon" style="background: #dd137b;" target="_blank" href="http://www.nipic.com">昵</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://www.zcool.com.cn">站酷网</a>
-        <a class="box_h" target="_blank" href="https://www.58pic.com">千图网</a>
-        <a class="box_h" target="_blank" href="http://www.redocn.com">红动中国</a>
-        <a class="box_h" target="_blank" href="http://www.nipic.com">昵图网</a></div>
-    </div>
-    <div id="Literature" class="box">
-      <div class="box_head">
-        <a onmousedown="hide('Literature')">×</a></div>
-      <div class="box_list">
-        <a class="box_icon" style="background: #bf2c24;" target="_blank" href="https://www.qidian.com">起</a>
-        <a class="box_icon" style="background: #4095d5;" target="_blank" href="http://book.qq.com">腾</a>
-        <a class="box_icon" style="background: #1b9f80;" target="_blank" href="https://www.linovel.net">轻</a>
-        <a class="box_icon" style="background: #ff7282;" target="_blank" href="https://www.iqing.com">文</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://www.qidian.com">起点中文</a>
-        <a class="box_h" target="_blank" href="http://book.qq.com">腾讯文学</a>
-        <a class="box_h" target="_blank" href="https://www.linovel.net">轻之文库</a>
-        <a class="box_h" target="_blank" href="https://www.iqing.com">轻文网</a>
-        <br>
-        <a class="box_icon" style="background: #000000;" target="_blank" href="http://www.shueisha.co.jp">英</a>
-        <a class="box_icon" style="background: #e53842;" target="_blank" href="http://dengekibunko.jp">电</a>
-        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
-        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
-        <br>
-        <a class="box_h" target="_blank" href="http://www.shueisha.co.jp">集英社</a>
-        <a class="box_h" target="_blank" href="http://dengekibunko.jp">电击文库</a>
-        <a class="box_h" target="_blank"></a>
-        <a class="box_h" target="_blank"></a>
-      </div>
-    </div>
-    <div id="Common" class="box">
-      <div class="box_head">
-        <a onmousedown="hide('Common')">×</a></div>
-      <div class="box_list">
-        <a class="box_icon" style="background: #000000;" target="_blank" href="https://zh.wikipedia.org">维</a>
-        <a class="box_icon" style="background: #2932e1;" target="_blank" href="https://baike.baidu.com">度</a>
-        <a class="box_icon" style="background: #0f88eb;" target="_blank" href="https://www.zhihu.com">知</a>
-        <a class="box_icon" style="background: #3b5998;" target="_blank" href="http://muchong.com">虫</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://zh.wikipedia.org">维基百科</a>
-        <a class="box_h" target="_blank" href="https://baike.baidu.com">百度百科</a>
-        <a class="box_h" target="_blank" href="https://www.zhihu.com">知乎</a>
-        <a class="box_h" target="_blank" href="http://muchong.com">小木虫</a>
-        <br>
-        <a class="box_icon" style="background: #e6162d;" target="_blank" href="https://www.weibo.com">微</a>
-        <a class="box_icon" style="background: #2832e0;" target="_blank" href="https://tieba.baidu.com">贴</a>
-        <a class="box_icon" style="background: #4986d0;" target="_blank" href="https://www.tianya.cn">涯</a>
-        <a class="box_icon" style="background: #ffce00;" target="_blank" href="https://qzone.qq.com">Q</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://www.weibo.com">微博</a>
-        <a class="box_h" target="_blank" href="https://tieba.baidu.com">百度贴吧</a>
-        <a class="box_h" target="_blank" href="https://www.tianya.cn">天涯</a>
-        <a class="box_h" target="_blank" href="https://qzone.qq.com">QQ空间</a>
-        <br>
-        <a class="box_icon" style="background: #3b5998;" target="_blank" href="https://www.facebook.com">F</a>
-        <a class="box_icon" style="background: #41abe1;" target="_blank" href="https://twitter.com">W</a>
-        <a class="box_icon" style="background: #35465c;" target="_blank" href="https://www.tumblr.com">T</a>
-        <a class="box_icon" style="background: #ffffff;" target="_blank">#</a>
-        <br>
-        <a class="box_h" target="_blank" href="https://www.facebook.com">Facebook</a>
-        <a class="box_h" target="_blank" href="https://twitter.com">Twitter</a>
-        <a class="box_h" target="_blank" href="https://www.tumblr.com">Tumblr</a>
-        <a class="box_h" target="_blank"></a>
-      </div>
-    </div>
-  </div>
-    <body>
-    </html>
+	<div class="topbar">
+		<div class="container">
+			<div class="topbar-nav">
+				<a href="">小米商城</a><span>|</span>
+				<a href="">MIUI</a><span>|</span>
+				<a href="">IoT</a><span>|</span>
+				<a href="">云服务</a><span>|</span>
+				<a href="">金融</a><span>|</span>
+				<a href="">有品</a><span>|</span>
+				<a href="">小爱开放平台</a><span>|</span>
+				<a href="">企业团购 </a><span>|</span>
+				<a href="">资质证照</a><span>|</span>
+				<a href="">协议规则</a><span>|</span>
+				<a href="">下载app</a><span>|</span>
+				<a href="">Select Location</a>
+			</div>
+			<div class="topbar-cart"><a href=""><i class="iconfont">&#xe61a</i> 购物车<span>(0)</span></a></div>
+			<div class="topbar-info clearfix"> 
+				<a href="">登录</a><span>|</span>
+				<a href="">注册</a><span>|</span>
+				<a href="" class="seq">消息通知</a>
+			</div>
+		</div>		
+	</div>
+	
+	<div class="header">
+		<div class="container">
+			<div class="header-log">
+				<a href="#" class="lr">小米官网</a>
+			</div>
+			<div class="header-nav">
+				<ul class="nav-list clearfix">
+					<li class="nav-category">
+						<a href="">全部商品分类</a>
+					</li>
+					<li class="nav-item">
+						<a href="">小米手机</a>
+					</li>
+					<li class="nav-item">
+						<a href="">Redmi 红米</a>
+					</li>
+					<li class="nav-item">
+						<a href="">电视</a>
+					</li>
+					<li class="nav-item">
+						<a href="">笔记本</a>
+					</li>
+					<li class="nav-item">
+						<a href="">家电</a>
+					</li>
+					<li class="nav-item">
+						<a href="">路由器</a>
+					</li>
+					<li class="nav-item">
+						<a href="">智能硬件</a>
+					</li>
+					<li class="nav-item">
+						<a href="">服务</a>
+					</li>
+					<li class="nav-item">
+						<a href="">社区</a>
+					</li>
+				</ul>
+			</div>
+			<div class="header-search">
+				<form action="" class="search-form">
+					<input type="search" name="keyword" class="search-text">
+					<input type="submit" value="&#xf00d9" class="search-btn iconfont">
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="seckill">
+		<div class="seckill-head"></div>
+		<div class="container">
+			<div id="seckillNav" class="seckill-nav">
+				<ul id="tabs">
+					<li class="active"><em>18:00</em><span><em>即将开始<br>距开始01:25</em></span></li>
+					<li><em>20：00</em><span>即将开始</span></li>
+					<li><em>22：00</em><span>即将开始</span></li>
+					<li><em>00：00</em><span>明日开始</span></li>
+					<li><em>08：00</em><Span>明日开始</Span></li>
+				</ul>
+			</div>
+			<div  id="lists" class="seckill-goods">
+				<ul class="clearfix active">
+					<li>
+						<div class="bg"><img src="img/1.png" alt=""></div>
+						<div class="info">
+							<a href="" class="name">小米移动电源4c 20000mah</a>
+							<p class="tips">高增益天线，信号更强 </p>
+							<p class="price">59元<del>99元</del></p>
+							<a href="" class="btn">登录后抢购</a>
+							<p>已有886977人设置提醒</p>	
+						</div>
+					</li>
+				</ul>
+				<ul class="clearfix">
+					<li>
+						<div class="bg"><img src="img/2.png" alt=""></div>
+						<div class="info">
+							<a href="" class="name">小米移动电源4c 20000mah</a>
+							<p class="tips">高增益天线，信号更强 </p>
+							<p class="price">59元<del>99元</del></p>
+							<a href="" class="btn">登录后抢购</a>
+							<p>已有886977人设置提醒</p>	
+						</div>
+					</li>
+				</ul>
+				<ul class="clearfix">
+					<li>
+						<div class="bg"><img src="img/3.png" alt=""></div>
+						<div class="info">
+							<a href="" class="name">小米移动电源4c 20000mah</a>
+							<p class="tips">高增益天线，信号更强 </p>
+							<p class="price">59元<del>99元</del></p>
+							<a href="" class="btn">登录后抢购</a>
+							<p>已有886977人设置提醒</p>	
+						</div>
+					</li>
+				</ul>
+				<ul class="clearfix">
+					<li>
+						<div class="bg"><img src="img/1.png" alt=""></div>
+						<div class="info">
+							<a href="" class="name">小米移动电源4c 20000mah</a>
+							<p class="tips">高增益天线，信号更强 </p>
+							<p class="price">59元<del>99元</del></p>
+							<a href="" class="btn">登录后抢购</a>
+							<p>已有886977人设置提醒</p>	
+						</div>
+					</li>
+					<li>
+						<div class="bg"><img src="img/2.png" alt=""></div>
+						<div class="info">
+							<a href="" class="name">小米移动电源4c 20000mah</a>
+							<p class="tips">高增益天线，信号更强 </p>
+							<p class="price">59元<del>99元</del></p>
+							<a href="" class="btn">登录后抢购</a>
+							<p>已有886977人设置提醒</p>	
+						</div>
+					</li>  
+				</ul>
+				<ul class="clearfix">
+					<li>
+						<div class="bg"><img src="img/3.png" alt=""></div>
+						<div class="info">
+							<a href="" class="name">小米移动电源4c 20000mah</a>
+							<p class="tips">高增益天线，信号更强 </p>
+							<p class="price">59元<del>99元</del></p>
+							<a href="" class="btn">登录后抢购</a>
+							<p>已有886977人设置提醒</p>	
+						</div>
+					</li>
+				</ul>
+			</div>
+			<p class="seckill-notice">*小米商偶活动规则，小米闪购商品不享受该商品在小米商城<br>的优惠政策（包括但不限于优惠券，赠品）</p>
+		</div>
+	</div>
+
+	<script src="js/index.js"></script>
+</body>
+</html>
